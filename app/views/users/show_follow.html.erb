@@ -7,19 +7,24 @@
       <span><%= link_to "view my profile", @user %></span>
       <span><b>Microposts:</b> <%= @user.microposts.count %></span>
     </section>
-    
     <section>
       <%= render 'shared/stats' %>
+      <% if @users.any? %>
+        <div class="user_avatars">
+          <% @users.each do |user| %>
+            <%= link_to gravatar_for(user, size: 30), user %>
+          <% end %>
+        </div>
+      <% end %>
     </section>
   </aside>
   <div class="span8">
-     <%= render 'follow_form' if signed_in? %>
-    <h3>Microposts</h3>
-    <% if @microposts.any? %>
-      <ul class="microposts">
-        <%= render @microposts %> 
+    <h3><%= @title %></h3>
+    <% if @users.any? %>
+      <ul class="users">
+        <%= render @users %>
       </ul>
-      <%= will_paginate @microposts %>
+      <%= will_paginate %>
     <% end %>
   </div>
 </div>
